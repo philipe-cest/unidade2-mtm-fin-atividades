@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidade II: Equivalência de Capitais e Rendas Certas | Prof. Msc. Philipe Sampaio Lima - CEST</title>
+    <meta name="description" content="Portal oficial da Unidade II de Matemática Financeira do Curso de Administração do CEST. Apresentações em slides e centrais de atividades práticas.">
+    <meta name="author" content="Prof. Msc. Philipe Sampaio Lima">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23002060'/><path d='M25 70 L45 35 L60 55 L75 30' stroke='%230080FF' stroke-width='8' fill='none' stroke-linecap='round'/><circle cx='75' cy='30' r='5' fill='%230080FF'/></svg>">
+
+    <style>
+        :root {
+            --primary: #002060;
+            --primary-dark: #001138;
+            --primary-light: #003399;
+            --secondary: #0080FF;
+            --secondary-light: #E6F2FF;
+            --accent: #00A3FF;
+            --background: #F4F7FA;
+            --surface: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border: #CBD5E1;
+            --success: #059669;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 3px rgba(0, 32, 96, 0.05);
+            --shadow-md: 0 4px 18px -2px rgba(0, 32, 96, 0.08);
+            --shadow-lg: 0 12px 30px -4px rgba(0, 32, 96, 0.15);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --max-width: 1200px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--secondary); text-decoration: none; transition: var(--transition); }
+        .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Cabeçalho */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--secondary);
+            box-shadow: var(--shadow-sm);
+        }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+        .brand-logo { display: flex; align-items: center; gap: 12px; font-weight: 800; color: var(--primary); font-size: 1.15rem; }
+        .brand-logo svg { width: 38px; height: 38px; flex-shrink: 0; }
+        .brand-divider { width: 1px; height: 24px; background-color: var(--border); }
+        .brand-sub { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+        .nav-link { font-size: 0.9rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-link:hover, .nav-link.active { color: var(--primary); }
+
+        /* Hero */
+        #hero {
+            padding: 3.5rem 0 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #FFFFFF;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background-color: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; color: var(--secondary-light);
+            margin-bottom: 1rem;
+        }
+        .hero-title { font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 0.85rem; }
+        .hero-description { font-size: 1.05rem; color: rgba(255, 255, 255, 0.88); max-width: 800px; line-height: 1.6; }
+
+        /* SEÇÃO DE ALERTA GERAL */
+        .alert-instruction {
+            background-color: #FEF3C7;
+            border: 2px solid #F59E0B;
+            border-left: 8px solid #D97706;
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.75rem;
+            margin: 2rem 0 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .alert-icon {
+            width: 42px; height: 42px; color: #D97706; flex-shrink: 0;
+        }
+        .alert-text h3 {
+            font-size: 1.15rem; font-weight: 800; color: #92400E; margin-bottom: 0.25rem;
+        }
+        .alert-text p {
+            font-size: 0.925rem; color: #78350F; line-height: 1.5; font-weight: 500;
+        }
+
+        /* 3 GRANDES CARDS DE ATIVIDADES */
+        .activities-hub { margin-bottom: 4rem; }
+        .section-header-highlight {
+            text-align: center; margin-bottom: 2rem;
+        }
+        .section-tag {
+            display: inline-block; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--secondary); background-color: var(--secondary-light); padding: 5px 14px; border-radius: 20px; margin-bottom: 0.5rem;
+        }
+        .section-title { font-size: 1.9rem; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
+
+        .cards-trio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+        .act-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+        }
+        .act-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+        .act-card.card-1 { border-color: #002060; }
+        .act-card.card-2 { border-color: #0080FF; }
+        .act-card.card-3 { border-color: #059669; }
+
+        .act-card-header {
+            padding: 1.5rem;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .act-card.card-1 .act-card-header { background: linear-gradient(135deg, #001138 0%, #002060 100%); }
+        .act-card.card-2 .act-card-header { background: linear-gradient(135deg, #002060 0%, #0080FF 100%); }
+        .act-card.card-3 .act-card-header { background: linear-gradient(135deg, #065F46 0%, #059669 100%); }
+
+        .act-badge {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            letter-spacing: 0.05em;
+        }
+        .act-title { font-size: 1.3rem; font-weight: 800; line-height: 1.3; }
+
+        .act-card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            gap: 1rem;
+        }
+        .act-meta-item {
+            display: flex; align-items: flex-start; gap: 8px; font-size: 0.9rem; color: var(--text-secondary);
+        }
+        .act-meta-item strong { color: var(--text-primary); font-weight: 700; }
+        .act-meta-item svg { width: 18px; height: 18px; color: var(--secondary); flex-shrink: 0; margin-top: 2px; }
+
+        .act-steps-box {
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .step-row {
+            display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700;
+        }
+        .step-num {
+            width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0;
+        }
+        .step-text { color: var(--text-primary); }
+
+        .btn-act-launch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            text-align: center;
+            margin-top: auto;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .act-card.card-1 .btn-act-launch { background-color: var(--primary); }
+        .act-card.card-1 .btn-act-launch:hover { background-color: var(--primary-light); transform: translateY(-2px); }
+
+        .act-card.card-2 .btn-act-launch { background-color: var(--secondary); }
+        .act-card.card-2 .btn-act-launch:hover { background-color: var(--accent); transform: translateY(-2px); }
+
+        .act-card.card-3 .btn-act-launch { background-color: var(--success); }
+        .act-card.card-3 .btn-act-launch:hover { background-color: #047857; transform: translateY(-2px); }
+
+        /* SEÇÃO DAS APRESENTAÇÕES (SLIDES) */
+        .slides-section { padding-top: 2rem; border-top: 1px solid var(--border); margin-bottom: 4rem; }
+        .meetings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
+        .meeting-box {
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem;
+            display: flex; flex-direction: column; gap: 0.75rem;
+        }
+        .meeting-box h4 { font-size: 1.05rem; color: var(--primary); font-weight: 800; }
+        .meeting-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+        .meeting-links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; }
+        .slide-link {
+            display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.85rem; background: var(--background);
+            border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.825rem; font-weight: 700; color: var(--primary);
+        }
+        .slide-link:hover { background: var(--secondary-light); border-color: var(--secondary); }
+
+        /* Footer */
+        footer { background-color: var(--primary-dark); color: #FFFFFF; padding: 3rem 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+        .footer-brand { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .footer-desc { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); line-height: 1.6; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; font-size: 0.825rem; color: rgba(255, 255, 255, 0.5); }
+
+        @media (max-width: 992px) {
+            .cards-trio { grid-template-columns: 1fr; }
+            .meetings-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo" aria-label="Portal Inicial CEST">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="16" fill="#002060"/>
+                    <path d="M20 75 V30 L50 30 L50 75" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round"/>
+                    <path d="M50 30 L80 30 L80 75" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round"/>
+                    <path d="M30 52 H70" stroke="#0080FF" stroke-width="8"/>
+                </svg>
+                <span>CEST</span>
+                <span class="brand-divider"></span>
+                <span class="brand-sub">Administração • Matemática Financeira</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#atividades" class="nav-link active">Atividades Avaliativas</a></li>
+                <li><a href="#aulas" class="nav-link">Slides das Aulas</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero Institucional -->
+        <section id="hero">
+            <div class="container">
+                <div class="hero-badge">
+                    Curso de Administração • 2º Período • Prof. Msc. Philipe Sampaio Lima
+                </div>
+                <h1 class="hero-title">Unidade II: Equivalência de Capitais e Rendas Certas</h1>
+                <p class="hero-description">
+                    Portal acadêmico da disciplina. Acesse abaixo as três centrais de atividades práticas com geração dinâmica de dados e os slides das aulas presenciais.
+                </p>
+            </div>
+        </section>
+
+        <div class="container">
+            
+            <!-- ALERTA GERAL DE PROCEDIMENTO OBRIGATÓRIO -->
+            <div class="alert-instruction">
+                <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div class="alert-text">
+                    <h3>Atenção Discentes — Procedimento Obrigatório das Atividades</h3>
+                    <p>
+                        Ao abrir cada atividade, é <strong>obrigatório preencher o seu nome completo</strong>. Resolva as questões observando a atualização dos gráficos em tempo real. Ao concluir, <strong>clique no botão para EXPORTAR EM PDF</strong> e, na sequência, utilize o link disponibilizado na própria página da atividade para <strong>ENVIAR O PDF VIA GOOGLE FORMS</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- OS 3 GRANDES CARDS DE ATIVIDADES -->
+            <section class="activities-hub" id="atividades">
+                <div class="section-header-highlight">
+                    <span class="section-tag">Centrais Avaliativas Obrigatórias</span>
+                    <h2 class="section-title">Escolha a Atividade do Encontro</h2>
+                </div>
+
+                <div class="cards-trio">
+                    
+                    <!-- CARD 1: ATIVIDADE 1 -->
+                    <div class="act-card card-1">
+                        <div class="act-card-header">
+                            <span class="act-badge">Encontro 1</span>
+                            <h3 class="act-title">Atividade Prática 1</h3>
+                            <span style="font-size:0.85rem; opacity:0.9;">Equivalência de Capitais & Data Focal</span>
+                        </div>
+                        <div class="act-card-body">
+                            <div class="act-meta-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <span><strong>Conteúdo:</strong> Transporte temporal na Data Focal, unificação de duplicatas e balança financeira.</span>
+                            </div>
+                            <div class="act-meta-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <span><strong>Formato:</strong> 5 questões com valores dinâmicos e gráficos interativos em tempo real.</span>
+                            </div>
+
+                            <div class="act-steps-box">
+                                <div class="step-row">
+                                    <span class="step-num">1</span>
+                                    <span class="step-text">Insira o seu Nome Completo</span>
+                                </div>
+                                <div class="step-row">
+                                    <span class="step-num">2</span>
+                                    <span class="step-text">Calcule e confira com margem de 5%</span>
+                                </div>
+                                <div class="step-row">
+                                    <span class="step-num">3</span>
+                                    <span class="step-text"><strong>Exporte em PDF</strong> e envie via Forms</span>
+                                </div>
+                            </div>
+
+                            <a href="atividade1.html" class="btn-act-launch">
+                                Acessar Atividade 1
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: ATIVIDADE 2 -->
+                    <div class="act-card card-2">
+                        <div class="act-card-header">
+                            <span class="act-badge">Encontro 2</span>
+                            <h3 class="act-title">Atividade Prática 2</h3>
+                            <span style="font-size:0.85rem; opacity:0.9;">Rendas Certas & Valor Presente</span>
+                        </div>
+                        <div class="act-card-body">
+                            <div class="act-meta-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <span><strong>Conteúdo:</strong> Os 4 elementos da série (R, n, i, frequência), Fator de VP e compras a prazo.</span>
+                            </div>
+                            <div class="act-meta-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <span><strong>Formato:</strong> 5 questões com barras proporcionais entre preço à vista e total parcelado.</span>
+                            </div>
+
+                            <div class="act-steps-box">
+                                <div class="step-row">
+                                    <span class="step-num">1</span>
+                                    <span class="step-text">Insira o seu Nome Completo</span>
+                                </div>
+                                <div class="step-row">
+                                    <span class="step-num">2</span>
+                                    <span class="step-text">Calcule e confira com margem de 5%</span>
+                                </div>
+                                <div class="step-row">
+                                    <span class="step-num">3</span>
+                                    <span class="step-text"><strong>Exporte em PDF</strong> e envie via Forms</span>
+                                </div>
+                            </div>
+
+                            <a href="atividade2.html" class="btn-act-launch">
+                                Acessar Atividade 2
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: ATIVIDADE 3 -->
+                    <div class="act-card card-3">
+                        <div class="act-card-header">
+                            <span class="act-badge">Encontro 3</span>
+                            <h3 class="act-title">Atividade Prática 3</h3>
+                            <span style="font-size:0.85rem; opacity:0.9;">Postecipadas vs. Antecipadas</span>
+                        </div>
+                        <div class="act-card-body">
+                            <div class="act-meta-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <span><strong>Conteúdo:</strong> Modelagem com entrada vs. sem entrada, fator (1+i), análise de VP e VF acumulado.</span>
+                            </div>
+                            <div class="act-meta-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <span><strong>Formato:</strong> 5 questões integradas com comparação direta entre fluxos antecipados e postecipados.</span>
+                            </div>
+
+                            <div class="act-steps-box">
+                                <div class="step-row">
+                                    <span class="step-num">1</span>
+                                    <span class="step-text">Insira o seu Nome Completo</span>
+                                </div>
+                                <div class="step-row">
+                                    <span class="step-num">2</span>
+                                    <span class="step-text">Calcule e confira com margem de 5%</span>
+                                </div>
+                                <div class="step-row">
+                                    <span class="step-num">3</span>
+                                    <span class="step-text"><strong>Exporte em PDF</strong> e envie via Forms</span>
+                                </div>
+                            </div>
+
+                            <a href="atividade3.html" class="btn-act-launch">
+                                Acessar Atividade 3
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ACESSO AOS SLIDES DAS AULAS -->
+            <section class="slides-section" id="aulas">
+                <div class="section-header-highlight" style="margin-bottom: 1.5rem;">
+                    <span class="section-tag">Apresentações em Tela Cheia</span>
+                    <h2 class="section-title">Apresentações dos Três Encontros</h2>
+                    <p style="color:var(--text-secondary); font-size:0.95rem; margin-top:0.35rem;">
+                        Material expositivo projetado em sala de aula com suporte total a passadores de slides USB.
+                    </p>
+                </div>
+
+                <div class="meetings-grid">
+                    <div class="meeting-box">
+                        <h4>Encontro 1 • Equivalência de Capitais</h4>
+                        <p class="meeting-desc">Princípio do valor do dinheiro no tempo, determinação da Data Focal e renegociação de duplicatas.</p>
+                        <div class="meeting-links">
+                            <a href="1.html" class="slide-link">Parte 1: Fundamentos e Data Focal &rarr;</a>
+                            <a href="2.html" class="slide-link">Parte 2: Conjuntos Equivalentes &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="meeting-box">
+                        <h4>Encontro 2 • Rendas Certas Postecipadas</h4>
+                        <p class="meeting-desc">Taxonomia das anuidades, prestação, prazo, taxa efetiva e cálculo de Valor Presente sem entrada.</p>
+                        <div class="meeting-links">
+                            <a href="3.html" class="slide-link">Parte 1: Conceito e Classificação &rarr;</a>
+                            <a href="4.html" class="slide-link">Parte 2: Modelos Postecipados &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="meeting-box">
+                        <h4>Encontro 3 • Modelos Antecipados</h4>
+                        <p class="meeting-desc">O fator corretivo (1+i), comparação entre pagar com ou sem entrada e tomada de decisão gerencial.</p>
+                        <div class="meeting-links">
+                            <a href="5.html" class="slide-link">Parte 1: Modelos Antecipados &rarr;</a>
+                            <a href="6.html" class="slide-link">Parte 2: Decisões e Síntese &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">CEST — Centro Universitário Santa Terezinha</div>
+                    <p class="footer-desc">
+                        Curso de Administração • Disciplina de Matemática Financeira (1798).<br>
+                        Material preparado para fixação analítica e resolução de problemas práticos.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="font-size:0.95rem; font-weight:700; color:var(--secondary-light); margin-bottom:0.75rem; text-transform:uppercase;">Docente Responsável</h4>
+                    <p class="footer-desc">
+                        <strong>Prof. Msc. Philipe Sampaio Lima</strong><br>
+                        Coordenador de Planejamento e Orçamento (UEMA)<br>
+                        Mestre em Engenharia de Computação e Sistemas (UEMA)
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; CEST - Todos os direitos reservados.</span>
+                <span>Ambiente configurado para publicação no GitHub Pages.</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

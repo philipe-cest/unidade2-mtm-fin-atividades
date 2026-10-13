@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Prática 1 • Equivalência de Capitais | Prof. Msc. Philipe Sampaio Lima - CEST</title>
+    <meta name="author" content="Prof. Msc. Philipe Sampaio Lima">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23002060'/><circle cx='50' cy='50' r='30' fill='%230080FF'/><text x='50' y='58' font-size='22' font-weight='bold' fill='white' text-anchor='middle'>AT1</text></svg>">
+    
+    <style>
+        :root {
+            --primary: #002060;
+            --primary-dark: #001138;
+            --primary-light: #003399;
+            --secondary: #0080FF;
+            --secondary-light: #E6F2FF;
+            --accent: #00A3FF;
+            --background: #F4F7FA;
+            --surface: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border: #CBD5E1;
+            --success: #059669;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 3px rgba(0, 32, 96, 0.05);
+            --shadow-md: 0 4px 18px -2px rgba(0, 32, 96, 0.08);
+            --max-w: 1100px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 5rem;
+        }
+
+        .container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 1.25rem; }
+
+        /* Header Institucional */
+        header {
+            background-color: var(--surface);
+            border-bottom: 2px solid var(--secondary);
+            padding: 1.25rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .brand-box { display: flex; align-items: center; gap: 12px; }
+        .brand-box svg { width: 38px; height: 38px; flex-shrink: 0; }
+        .brand-titles h1 { font-size: 1.15rem; font-weight: 800; color: var(--primary); line-height: 1.2; }
+        .brand-titles p { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+
+        /* Banner de Instrução e Identificação */
+        .intro-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #FFFFFF;
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .intro-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; color: #FFFFFF; }
+        .intro-desc { font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 1.6; max-width: 850px; }
+
+        .student-box {
+            background: var(--surface);
+            border: 2px solid var(--secondary);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-md);
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1.25rem;
+            align-items: center;
+        }
+        .student-field label {
+            display: block; font-size: 0.85rem; font-weight: 700; color: var(--primary); margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .student-field input {
+            width: 100%; padding: 0.85rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); transition: 0.2s;
+        }
+        .student-field input:focus { border-color: var(--secondary); outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(0,128,255,0.15); }
+        .student-meta {
+            font-size: 0.85rem; color: var(--text-secondary); background: var(--background); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border);
+        }
+
+        /* Banner Chamativo Google Forms */
+        .forms-callout {
+            background: linear-gradient(135deg, #107C41 0%, #0B532A 100%);
+            color: #fff;
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 24px -4px rgba(16, 124, 65, 0.25);
+        }
+        .forms-info h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .forms-info p { font-size: 0.9rem; opacity: 0.9; }
+        .btn-forms {
+            display: inline-flex; align-items: center; gap: 8px; background-color: #FFFFFF; color: #0B532A; padding: 0.85rem 1.6rem; border-radius: 30px; font-weight: 800; font-size: 0.95rem; text-decoration: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .btn-forms:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); background-color: #F0FDF4; }
+
+        /* Bloco de Questão */
+        .question-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s;
+        }
+        .question-card:hover { border-color: rgba(0, 32, 96, 0.3); }
+        .q-header {
+            display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--background); padding-bottom: 0.85rem; margin-bottom: 1.25rem;
+        }
+        .q-badge {
+            background-color: var(--primary); color: #fff; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;
+        }
+        .q-theme { font-size: 0.85rem; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .q-statement {
+            font-size: 1.05rem; line-height: 1.65; color: var(--text-primary); margin-bottom: 1.5rem;
+        }
+        .q-highlight {
+            background-color: var(--secondary-light); padding: 0.75rem 1.25rem; border-radius: var(--radius-sm); border-left: 4px solid var(--secondary); margin: 0.85rem 0; font-size: 0.95rem; color: var(--primary);
+        }
+
+        /* Grade da Questão: Formulário e Gráfico Interativo */
+        .q-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; align-items: start;
+        }
+        .answer-form {
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .input-group label {
+            display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.3rem;
+        }
+        .input-group input {
+            width: 100%; padding: 0.75rem 0.9rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 1rem; font-weight: 700; color: var(--text-primary);
+        }
+        .input-group input:focus { border-color: var(--secondary); outline: none; }
+        .input-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
+
+        .btn-check-q {
+            background-color: var(--primary); color: #fff; border: none; padding: 0.75rem 1.25rem; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-check-q:hover { background-color: var(--primary-light); }
+
+        .q-feedback {
+            margin-top: 1rem; padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 0.9rem; display: none; line-height: 1.5;
+        }
+        .q-feedback.correct {
+            display: block; background-color: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46;
+        }
+        .q-feedback.incorrect {
+            display: block; background-color: #FEF2F2; border: 1px solid #FECACA; color: #991B1B;
+        }
+
+        /* Container do Gráfico SVG */
+        .q-chart-panel {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+            min-height: 220px;
+        }
+        .chart-header { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; letter-spacing: 0.05em; text-align: center; }
+
+        /* Barra de Ações Final e Exportação */
+        .action-dock {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-md);
+            margin-top: 3rem;
+        }
+        .action-dock-text h4 { font-size: 1.15rem; color: var(--primary); font-weight: 800; }
+        .action-dock-text p { font-size: 0.85rem; color: var(--text-secondary); }
+        .btn-export-pdf {
+            display: inline-flex; align-items: center; gap: 8px; background-color: var(--secondary); color: #fff; border: none; padding: 0.95rem 2rem; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 800; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,128,255,0.3);
+        }
+        .btn-export-pdf:hover { background-color: var(--primary-light); transform: translateY(-2px); }
+
+        /* Responsividade para Tablets e Celulares */
+        @media (max-width: 900px) {
+            .student-box { grid-template-columns: 1fr; }
+            .q-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .forms-callout { flex-direction: column; align-items: flex-start; }
+            .action-dock { flex-direction: column; align-items: stretch; text-align: center; }
+            .btn-export-pdf { width: 100%; justify-content: center; }
+        }
+
+        /* Configuração de Impressão Direta em PDF (@media print) */
+        @media print {
+            body { background: #fff !important; color: #000 !important; padding: 0; }
+            header, .forms-callout, .action-dock, .btn-check-q, .input-hint { display: none !important; }
+            .container { max-width: 100% !important; padding: 0 !important; }
+            .intro-card { background: #002060 !important; color: #fff !important; -webkit-print-color-adjust: exact; padding: 1.25rem !important; }
+            .student-box { border: 1.5px solid #002060 !important; padding: 1rem !important; margin-bottom: 1.5rem !important; }
+            .question-card { border: 1px solid #CBD5E1 !important; page-break-inside: avoid; margin-bottom: 1.5rem !important; box-shadow: none !important; }
+            .q-chart-panel { border: 1px solid #ccc !important; }
+            input { border: 1px solid #000 !important; color: #000 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="brand-box">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="16" fill="#002060"/>
+                    <path d="M20 75 V30 L50 30 L50 75" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round"/>
+                    <path d="M50 30 L80 30 L80 75" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round"/>
+                    <path d="M30 52 H70" stroke="#0080FF" stroke-width="8"/>
+                </svg>
+                <div class="brand-titles">
+                    <h1>CEST • Centro Universitário Santa Terezinha</h1>
+                    <p>Curso de Administração • Matemática Financeira • Prof. Msc. Philipe Sampaio Lima</p>
+                </div>
+            </div>
+            <div>
+                <a href="2.html" style="font-size:0.85rem; font-weight:700; color:var(--secondary); text-decoration:none; display:flex; align-items:center; gap:4px;">
+                    &larr; Voltar aos Slides da Aula 1
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Apresentação do Módulo -->
+        <section class="intro-card">
+            <h2 class="intro-title">Atividade Avaliativa 1 • Equivalência de Capitais</h2>
+            <p class="intro-desc">
+                Esta atividade avalia a sua capacidade prática de transpor obrigações para uma mesma <strong>Data Focal</strong> e renegociar fluxos financeiros de forma justa. 
+                Preencha o seu nome obrigatório, resolva as 5 questões propostas digitando os valores calculados (você verá os gráficos mudando em tempo real conforme as suas respostas) e gere o seu PDF para submissão oficial.
+            </p>
+        </section>
+
+        <!-- Identificação Obrigatória do Discente -->
+        <section class="student-box" id="studentSection">
+            <div class="student-field">
+                <label for="studentName">Nome Completo do Aluno (Obrigatório):</label>
+                <input type="text" id="studentName" placeholder="Digite seu nome completo aqui..." oninput="salvarNome()">
+            </div>
+            <div class="student-meta">
+                <div><strong>Disciplina:</strong> Matemática Financeira (1798)</div>
+                <div><strong>Encontro:</strong> Aula 1 • Equivalência e Conjuntos</div>
+                <div><strong>Data da Sessão:</strong> <span id="sessionDate">--/--/----</span></div>
+            </div>
+        </section>
+
+        <!-- Banner Google Forms -->
+        <section class="forms-callout">
+            <div class="forms-info">
+                <h3>Envio da Produção Discente Efetiva (TDE)</h3>
+                <p>Após responder e exportar o seu arquivo em PDF com a sua memória de cálculo, envie-o pelo formulário oficial:</p>
+            </div>
+            <a href="https://forms.gle/VMjrZ16qW4Pe4qeR8" target="_blank" rel="noopener noreferrer" class="btn-forms">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Submeter no Google Forms
+            </a>
+        </section>
+
+        <!-- QUESTÕES DINÂMICAS (1 a 5) -->
+        <div id="questionsContainer">
+            <!-- Injetado dinamicamente via JavaScript com valores aleatórios -->
+        </div>
+
+        <!-- Barra Inferior de Ação: Exportar PDF -->
+        <div class="action-dock">
+            <div class="action-dock-text">
+                <h4>Concluiu a resolução das 5 questões?</h4>
+                <p>O arquivo PDF será padronizado como: <code>Aula1_Equivalencia_[Seu_Nome].pdf</code></p>
+            </div>
+            <button class="btn-export-pdf" onclick="exportarPDF()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exportar Folha de Resposta em PDF
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        // FORMATAÇÃO MONETÁRIA BRASIL
+        const fmtBRL = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+        const fmtNum = (val) => Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // BANCO DE PARÂMETROS ALEATÓRIOS (Sem atualizar a página sozinho, gerado ao carregar)
+        // Função para número aleatório com arredondamento inteligente
+        function getRandom(min, max, step) {
+            const steps = Math.floor((max - min) / step);
+            return min + (Math.floor(Math.random() * (steps + 1)) * step);
+        }
+
+        // Gerar 5 cenários empresariais distintos baseados no caso prático de unificação
+        const questionData = [
+            {
+                id: 1,
+                empresa: "Supermercado Alvorada",
+                v1: getRandom(3000, 5000, 500),
+                m1: 1,
+                v2: getRandom(5500, 8000, 500),
+                m2: 2,
+                mFocal: 3,
+                taxa: getRandom(1.5, 3.0, 0.5),
+                descContexto: "Uma distribuidora de alimentos precisa unificar duas notas promissórias com seu fornecedor de laticínios num pagamento único no Mês 3."
+            },
+            {
+                id: 2,
+                empresa: "Clínica Médica Santa Ana",
+                v1: getRandom(6000, 9000, 1000),
+                m1: 2,
+                v2: getRandom(10000, 15000, 1000),
+                m2: 4,
+                mFocal: 5,
+                taxa: getRandom(2.0, 3.5, 0.5),
+                descContexto: "A administração da clínica renegociou a compra de materiais hospitalares para liquidar os dois títulos num pagamento único concentrado no Mês 5."
+            },
+            {
+                id: 3,
+                empresa: "Indústria Maranhense de Embalagens",
+                v1: getRandom(12000, 18000, 2000),
+                m1: 1,
+                v2: getRandom(20000, 30000, 2000),
+                m2: 3,
+                mFocal: 4,
+                taxa: getRandom(1.8, 2.8, 0.2),
+                descContexto: "Para ajustar seu fluxo de caixa trimestral, a tesouraria substituiu duas duplicatas de matérias-primas por um desembolso integral no Mês 4."
+            },
+            {
+                id: 4,
+                empresa: "Transportadora Express Ltda",
+                v1: getRandom(4500, 7500, 500),
+                m1: 2,
+                v2: getRandom(8000, 12000, 500),
+                m2: 3,
+                mFocal: 6,
+                taxa: getRandom(2.2, 3.2, 0.2),
+                descContexto: "Duas obrigações com a concessionária de frotas foram diferidas para quitação consolidada no Mês 6 sob regime de capitalização composta."
+            },
+            {
+                id: 5,
+                empresa: "Rede de Farmácias DrogaVida",
+                v1: getRandom(8000, 12000, 1000),
+                m1: 1,
+                v2: getRandom(14000, 22000, 1000),
+                m2: 2,
+                mFocal: 4,
+                taxa: getRandom(2.0, 4.0, 0.5),
+                descContexto: "A diretoria financeira unificou o pagamento das duas faturas de reposição de estoque num único vencimento acordado para o Mês 4."
+            }
+        ];
+
+        // Inicialização da Página
+        document.addEventListener("DOMContentLoaded", () => {
+            const d = new Date();
+            document.getElementById("sessionDate").textContent = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+            
+            // Tentar recuperar nome salvo na sessão
+            const savedName = localStorage.getItem("aluno_mtmfin_nome");
+            if (savedName) document.getElementById("studentName").value = savedName;
+
+            renderQuestions();
+        });
+
+        function salvarNome() {
+            const n = document.getElementById("studentName").value;
+            localStorage.setItem("aluno_mtmfin_nome", n);
+        }
+
+        // Renderizar Questões e seus respectivos gráficos
+        function renderQuestions() {
+            const container = document.getElementById("questionsContainer");
+            container.innerHTML = "";
+
+            questionData.forEach((q) => {
+                const i = q.taxa / 100;
+                // Cálculo Matemático Correto de Referência
+                const n1 = q.mFocal - q.m1;
+                const vf1 = q.v1 * Math.pow(1 + i, n1);
+                const n2 = q.mFocal - q.m2;
+                const vf2 = q.v2 * Math.pow(1 + i, n2);
+                const totalGabarito = vf1 + vf2;
+                const somaNominal = q.v1 + q.v2;
+
+                q.gabarito = {
+                    vf1: vf1,
+                    vf2: vf2,
+                    total: totalGabarito,
+                    somaNominal: somaNominal
+                };
+
+                const card = document.createElement("div");
+                card.className = "question-card";
+                card.id = `qCard_${q.id}`;
+                card.innerHTML = `
+                    <div class="q-header">
+                        <span class="q-badge">Questão 0${q.id}</span>
+                        <span class="q-theme">${q.empresa} • Unificação de Títulos</span>
+                    </div>
+
+                    <p class="q-statement">
+                        ${q.descContexto}<br>
+                        A empresa possui atualmente duas obrigações com seu credor: 
+                        <strong>${fmtBRL.format(q.v1)}</strong> com vencimento para o <strong>Mês ${q.m1}</strong> e 
+                        <strong>${fmtBRL.format(q.v2)}</strong> com vencimento para o <strong>Mês ${q.m2}</strong>. 
+                        A diretoria negociou o adiamento e unificação dessas obrigações num <strong>pagamento único para o Mês ${q.mFocal}</strong>, sob uma taxa acertada de <strong>${q.taxa.toFixed(1).replace('.', ',')}% ao mês</strong> (juros compostos).
+                    </p>
+
+                    <div class="q-highlight">
+                        <strong>Objetivo do Aluno:</strong> Calcule o transporte de cada título até a Data Focal (Mês ${q.mFocal}) e indique o valor consolidado a ser pago na renegociação.
+                    </div>
+
+                    <div class="q-grid">
+                        <div class="answer-form">
+                            <div class="input-group">
+                                <label for="ans_${q.id}_vf1">1. Título 1 corrigido no Mês ${q.mFocal} (R$):</label>
+                                <input type="text" id="ans_${q.id}_vf1" placeholder="Ex: 4161,60" oninput="validarNumeroBR(this); atualizarGraficoQuestao(${q.id});">
+                                <span class="input-hint">Capitalize ${fmtBRL.format(q.v1)} por ${n1} mês(es).</span>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="ans_${q.id}_vf2">2. Título 2 corrigido no Mês ${q.mFocal} (R$):</label>
+                                <input type="text" id="ans_${q.id}_vf2" placeholder="Ex: 6120,00" oninput="validarNumeroBR(this); atualizarGraficoQuestao(${q.id});">
+                                <span class="input-hint">Capitalize ${fmtBRL.format(q.v2)} por ${n2} mês(es).</span>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="ans_${q.id}_total">3. Pagamento Único no Mês ${q.mFocal} (R$):</label>
+                                <input type="text" id="ans_${q.id}_total" placeholder="Ex: 10281,60" oninput="validarNumeroBR(this); atualizarGraficoQuestao(${q.id});">
+                                <span class="input-hint">Soma dos dois títulos na Data Focal.</span>
+                            </div>
+
+                            <button class="btn-check-q" onclick="verificarQuestao(${q.id})">
+                                Validar Resposta com Margem de 5%
+                            </button>
+
+                            <div id="fb_${q.id}" class="q-feedback"></div>
+                        </div>
+
+                        <!-- Gráfico Dinâmico da Questão -->
+                        <div class="q-chart-panel">
+                            <div class="chart-header">Dinâmica de Fluxo da Questão 0${q.id}</div>
+                            <svg id="svg_q_${q.id}" viewBox="0 0 340 160" style="width:100%; height:150px;">
+                                <!-- Gerado dinamicamente -->
+                            </svg>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                // Desenhar gráfico inicial da questão
+                atualizarGraficoQuestao(q.id);
+            });
+        }
+
+        // Restringir digitação apenas a números e vírgula
+        function validarNumeroBR(input) {
+            // Permite dígitos e apenas uma vírgula
+            let val = input.value.replace(/[^0-9,]/g, "");
+            const parts = val.split(",");
+            if (parts.length > 2) {
+                val = parts[0] + "," + parts.slice(1).join("");
+            }
+            input.value = val;
+        }
+
+        // Converte string com vírgula para número flutuante
+        function parseBRFloat(str) {
+            if (!str) return 0;
+            return parseFloat(str.replace(".", "").replace(",", ".")) || 0;
+        }
+
+        // Atualização Dinâmica do Gráfico SVG Conforme Digitação
+        function atualizarGraficoQuestao(qid) {
+            const q = questionData.find(item => item.id === qid);
+            const userTotal = parseBRFloat(document.getElementById(`ans_${qid}_total`).value);
+            const userVf1 = parseBRFloat(document.getElementById(`ans_${qid}_vf1`).value);
+            const userVf2 = parseBRFloat(document.getElementById(`ans_${qid}_vf2`).value);
+
+            const somaNominal = q.gabarito.somaNominal;
+            const refTotal = userTotal > 0 ? userTotal : q.gabarito.total;
+
+            const maxBar = Math.max(somaNominal, refTotal, 1);
+            const hNominal = Math.max(15, (somaNominal / maxBar) * 90);
+            const hProposta = Math.max(15, (refTotal / maxBar) * 90);
+
+            const svg = document.getElementById(`svg_q_${qid}`);
+            svg.innerHTML = `
+                <!-- Linha de Base do Tempo -->
+                <line x1="25" y1="125" x2="315" y2="125" stroke="#CBD5E1" stroke-width="2"/>
+                
+                <!-- Barra 1: Soma Nominal Original -->
+                <rect x="50" y="${125 - hNominal}" width="55" height="${hNominal}" rx="4" fill="#64748B"/>
+                <text x="77" y="${118 - hNominal}" font-size="9" font-weight="bold" fill="#64748B" text-anchor="middle">${fmtBRL.format(somaNominal)}</text>
+                <text x="77" y="140" font-size="9" font-weight="600" fill="#64748B" text-anchor="middle">Nominal</text>
+
+                <!-- Barra 2: Nova Proposta na Data Focal -->
+                <rect x="180" y="${125 - hProposta}" width="55" height="${hProposta}" rx="4" fill="${userTotal > 0 ? '#0080FF' : '#002060'}"/>
+                <text x="207" y="${118 - hProposta}" font-size="9" font-weight="bold" fill="${userTotal > 0 ? '#0080FF' : '#002060'}" text-anchor="middle">
+                    ${fmtBRL.format(refTotal)}
+                </text>
+                <text x="207" y="140" font-size="9" font-weight="700" fill="#002060" text-anchor="middle">Mês ${q.mFocal} (Focal)</text>
+
+                <!-- Indicador de Status Interativo -->
+                <circle cx="280" cy="40" r="16" fill="${userTotal > 0 ? '#E6F2FF' : '#F1F5F9'}"/>
+                <text x="280" y="44" font-size="12" font-weight="bold" fill="#0080FF" text-anchor="middle">
+                    ${userTotal > 0 ? '✎' : '•'}
+                </text>
+            `;
+        }
+
+        // Validação da Questão com Margem de Tolerância de até 5% (para calculadoras e arredondamentos)
+        function verificarQuestao(qid) {
+            const q = questionData.find(item => item.id === qid);
+            const userTotal = parseBRFloat(document.getElementById(`ans_${qid}_total`).value);
+            const fb = document.getElementById(`fb_${qid}`);
+
+            if (userTotal <= 0) {
+                fb.className = "q-feedback incorrect";
+                fb.textContent = "Preencha o campo do Pagamento Único no Mês Focal para verificar a questão.";
+                return;
+            }
+
+            const gabarito = q.gabarito.total;
+            const diffPercent = Math.abs(userTotal - gabarito) / gabarito;
+
+            if (diffPercent <= 0.05) { // Até 5% de tolerância
+                fb.className = "q-feedback correct";
+                fb.innerHTML = `
+                    <strong>Parabéns! Resposta Correta (dentro da margem aceitável de 5%).</strong><br>
+                    • Título 1 no Mês ${q.mFocal}: ${fmtBRL.format(q.gabarito.vf1)}<br>
+                    • Título 2 no Mês ${q.mFocal}: ${fmtBRL.format(q.gabarito.vf2)}<br>
+                    • Total Justo Exato: <strong>${fmtBRL.format(q.gabarito.total)}</strong> (Seu valor informado: ${fmtBRL.format(userTotal)})
+                `;
+            } else {
+                fb.className = "q-feedback incorrect";
+                fb.innerHTML = `
+                    <strong>Resposta fora da margem esperada de 5%.</strong><br>
+                    Reveja a quantidade de meses capitalizados de cada título até ao Mês ${q.mFocal}. Lembre-se de usar a fórmula de avanço: Capital × (1 + taxa)<sup>meses</sup>.
+                `;
+            }
+        }
+
+        // Exportação Profissional em PDF com o Nome do Aluno
+        function exportarPDF() {
+            const nomeAluno = document.getElementById("studentName").value.trim();
+            if (!nomeAluno) {
+                alert("ATENÇÃO: É obrigatório inserir o Nome Completo do Aluno no topo da página antes de exportar o PDF!");
+                document.getElementById("studentName").focus();
+                document.getElementById("studentSection").scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
+            // Sanitizar nome para o título do arquivo
+            const nomeFormatado = nomeAluno.replace(/[^a-zA-Z0-9À-ÿ\s]/g, "").trim().replace(/\s+/g, "_");
+            const tituloOriginal = document.title;
+            
+            // Define o nome de arquivo padrão para download em PDF pelo navegador
+            document.title = `Aula1_Equivalencia_${nomeFormatado}`;
+
+            // Executa a impressão nativa que permite salvar como PDF
+            window.print();
+
+            // Restaura o título da página
+            setTimeout(() => {
+                document.title = tituloOriginal;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
